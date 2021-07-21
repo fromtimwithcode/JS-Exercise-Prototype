@@ -68,16 +68,13 @@ kevin.eat('🍣');
 kevin.eat('🍝');
 kevin.eat('🍞');
 
-console.log(kevin.stomach);
+console.log('Task 1 - kevin stomach: ', kevin.stomach);
 
 kevin.poop();
 
-console.log(kevin.stomach);
+console.log('Task 1 - kevin stomach after poop(): ', kevin.stomach);
 
-console.log(kevin.toString());
-
-
-
+console.log('Task 1 - Kevin toString(): ', kevin.toString());
 
 /*
   TASK 2
@@ -93,11 +90,32 @@ console.log(kevin.toString());
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-  
+function Car(model, milesPerGallon, tank = 0, odometer = 0) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = tank;
+  this.odometer = odometer;
 }
 
+Car.prototype.fill = function (gallons) {
+  return this.tank += gallons;
+};
 
+Car.prototype.drive = function (distance) {
+  return this.odometer += distance;
+}
+
+const honda = new Car({
+  model: 'Civic',
+  milesPerGallon: 30,
+  tank: 0,
+  odometer: 0
+});
+
+console.log('Fill: ', honda.fill(30));
+console.log('Drive (10): ', honda.drive(10));
+
+console.log('Odometer: ', honda.odometer, 'Tank: ', honda.tank);
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
