@@ -102,18 +102,20 @@ Car.prototype.fill = function (gallons) {
 };
 
 Car.prototype.drive = function (distance) {
-  return this.odometer += distance;
+  if (this.tank - (distance/this.milesPerGallon) > 0) {
+    this.tank -= (distance/this.milesPerGallon).toFixed(2);
+    return this.odometer += distance;
+  } else {
+    this.tank = 0;
+    this.odometer += (distance * this.milesPerGallon) / distance;
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }
 }
 
-const honda = new Car({
-  model: 'Civic',
-  milesPerGallon: 30,
-  tank: 0,
-  odometer: 0
-});
+const honda = new Car('Civic', 30, 0, 0);
 
-console.log('Fill: ', honda.fill(30));
-console.log('Drive (10): ', honda.drive(10));
+console.log('Fill (gal): ', honda.fill(1));
+console.log('Drive (mi): ', honda.drive(35));
 
 console.log('Odometer: ', honda.odometer, 'Tank: ', honda.tank);
 /*
